@@ -1,5 +1,6 @@
 package com.sbj.springbootjpa.model.dto;
 
+import com.sbj.springbootjpa.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,4 +15,10 @@ public class UserRequest {
     private String username;
     private String password;
 
+    public User toEntity() {
+        return User.builder()
+                .username(this.username)
+                .password(this.password)
+                .build();
+    }
 }

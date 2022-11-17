@@ -1,6 +1,7 @@
 package com.sbj.springbootjpa.service;
 
 import com.sbj.springbootjpa.model.User;
+import com.sbj.springbootjpa.model.dto.UserRequest;
 import com.sbj.springbootjpa.model.dto.UserResponse;
 import com.sbj.springbootjpa.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,13 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public UserResponse addUser(UserRequest dto) {
+        // dto를 entity로
+        User user = dto.toEntity();
+        User savedUser = userRepository.save(user);
+        return new UserResponse(savedUser.getId(), savedUser.getUsername(), "회원 등록 성공");
     }
 
     public UserResponse getUser(Long id) {
